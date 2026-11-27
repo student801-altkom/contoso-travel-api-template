@@ -31,6 +31,12 @@ def countries() -> List[str]:
     return list(data.keys())
 
 
+@app.get("/cities")
+def all_cities() -> List[str]:
+    """Zwraca listę miast ze wszystkich krajów."""
+    return [city for country_cities in data.values() for city in country_cities]
+
+
 @app.get("/countries/{country}/cities")
 def cities(country: str) -> List[str]:
     """Zwraca listę miast w podanym kraju."""
@@ -41,3 +47,9 @@ def cities(country: str) -> List[str]:
 def monthly_average(country: str, city: str, month: str):
     """Zwraca średnie temperatury w mieście w podanym miesiącu."""
     return data[country][city][month]
+
+# funkcja zamieniajaca stopnie Fahrenheita na Celsjusza
+def fahrenheit_to_celsius(fahrenheit: float) -> float:
+    """Zamienia stopnie Fahrenheita na Celsjusza."""
+    return (fahrenheit - 32) * 5.0 / 9.0
+
